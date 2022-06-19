@@ -10,7 +10,7 @@ uci set firewall.@redirect[-1].src_dport='88'
 uci set firewall.@redirect[-1].dest_ip=${NET_ADDR}
 uci set firewall.@redirect[-1].dest_port='88'
 uci commit firewall
-service firewall restart
+/etc/init.d/firewall restart
 opkg update
 opkg install xray-core
 opkg install libpng bash curl
