@@ -1,4 +1,5 @@
 #!/bin/sh
+clear
 echo 'File shell cài đặt và config xray cho openwrt > 19.x, vui lòng kiểm tra phiên bản trước khi tiếp tục cài đặt'
 echo 'Nhấn enter để tiếp tục cài đặt'
 echo 'File shell make by Lê Thế Dũng'
