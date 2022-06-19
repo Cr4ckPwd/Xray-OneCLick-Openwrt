@@ -73,4 +73,4 @@ echo 'Gặp vấn đề gì ibox mình hỗ trợ'
 echo 'Facebook: https://fb.com/100081210470123'
 echo 'Đăng nhập vào trang quản lý openwrt vào theo mục System -> Startup -> tìm kiếm service tên xray và nhấn start'
 echo 'Thank you for used'
-
+/etc/init.d/xray start
