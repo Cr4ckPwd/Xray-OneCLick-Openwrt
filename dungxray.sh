@@ -1,6 +1,5 @@
 #!/bin/sh
 clear
-echo 'File shell cài đặt và config xray cho openwrt > 19.x, vui lòng kiểm tra phiên bản trước khi tiếp tục cài đặt'
 NET_ADDR=$(/sbin/ip -o -4 addr list br-lan | awk 'NR==1{ split($4, ip_addr, "/"); print ip_addr[1] }')
 uci add firewall redirect
 uci set firewall.@redirect[-1].name='xRay'
@@ -14,7 +13,7 @@ uci commit firewall
 service firewall restart
 opkg update
 opkg install xray-core
-opkg install libpng
+opkg install libpng bash curl
 opkg install qrencode libqrencode
 uci set xray.enabled.enabled='1'
 LTDUNG='{
@@ -60,7 +59,7 @@ LTDUNG='{
   "reverse": {}
 }'
 
-QRCODE= 'vmess://eyJhZGQiOiIxMjMuMjcuMjguNDQiLCJhaWQiOiIwIiwiaG9zdCI6InYuYWthbWFpemVkLm5ldCIsImlkIjoiZWE3MGI4ZWItZWE0ZS00Y2JhLTgzZmYtNzI1MTBiNDMxN2UyIiwibmV0Ijoid3MiLCJwYXRoIjoiLyIsInBvcnQiOiI4MCIsInBzIjoiVGhheSAxMjMuMjcuMjguNDQgdGjDoG5oIGlwIGPhu6dhIGLhuqFuIiwic2N5Ijoibm9uZSIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiIiLCJ2IjoiMiJ9'
+QRCODE='vmess://eyJhZGQiOiIxMjMuMjcuMjguNDQiLCJhaWQiOiIwIiwiaG9zdCI6InYuYWthbWFpemVkLm5ldCIsImlkIjoiZWE3MGI4ZWItZWE0ZS00Y2JhLTgzZmYtNzI1MTBiNDMxN2UyIiwibmV0Ijoid3MiLCJwYXRoIjoiLyIsInBvcnQiOiI4MCIsInBzIjoiVGhheSAxMjMuMjcuMjguNDQgdGjDoG5oIGlwIGPhu6dhIGLhuqFuIiwic2N5Ijoibm9uZSIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiIiLCJ2IjoiMiJ9'
 echo "${LTDUNG}" >> /etc/xray/config.json
 echo 'Nếu không có xuất hiện thông báo lỗi thì việc cài đặt và cấu hình xray sever đã hoàn tất'
 echo 'Nhấn enter để tiếp tục'
@@ -73,9 +72,5 @@ echo 'File shell script make by Dũng'
 echo 'Gặp vấn đề gì ibox mình hỗ trợ'
 echo 'Facebook: https://fb.com/100081210470123'
 echo 'Đăng nhập vào trang quản lý openwrt vào theo mục System -> Startup -> tìm kiếm service tên xray và nhấn start'
-echo 'Support mình một ít cà phê:'
-echo 'Momo: 0374724791 Lê Thế Dũng'
-echo 'MBbank: 0374724791 LE THE DUNG'
 echo 'Thank you for used'
-echo 'nhấn enter để tiếp tục'
 
