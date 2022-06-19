@@ -15,7 +15,10 @@ opkg update
 opkg install xray-core
 opkg install libpng bash curl
 opkg install qrencode libqrencode
+opkg install coreutils-base64
 uci set xray.enabled.enabled='1'
+UUID=$(xray uuid)
+NAME=$(uname -m -0)
 LTDUNG='{
   "log": {},
   "api": {
@@ -37,7 +40,7 @@ LTDUNG='{
     "settings": {
       "clients": [
         {
-          "id": "ea70b8eb-ea4e-4cba-83ff-72510b4317e2",
+          "id": "'${UUID}'",
           "level": 0,
           "email": "lethedung@admin.com"
         }
@@ -58,19 +61,15 @@ LTDUNG='{
   "stats": {},
   "reverse": {}
 }'
-
-QRCODE='vmess://eyJhZGQiOiIxMjMuMjcuMjguNDQiLCJhaWQiOiIwIiwiaG9zdCI6InYuYWthbWFpemVkLm5ldCIsImlkIjoiZWE3MGI4ZWItZWE0ZS00Y2JhLTgzZmYtNzI1MTBiNDMxN2UyIiwibmV0Ijoid3MiLCJwYXRoIjoiLyIsInBvcnQiOiI4MCIsInBzIjoiVGhheSAxMjMuMjcuMjguNDQgdGjDoG5oIGlwIGPhu6dhIGLhuqFuIiwic2N5Ijoibm9uZSIsInNuaSI6IiIsInRscyI6IiIsInR5cGUiOiIiLCJ2IjoiMiJ9'
+IP=$(curl -4 ifconfig.co)
+VMESSCODE='{"add":"'${IP}'","aid":"0","host":"v.akamaized.net","id":"'${UUID}'","net":"ws","path":"/","port":"80","ps":"'${name}'","scy":"none","sni":"","tls":"","type":"","v":"2"}'
+echo "${VMESSCODE}" >> ./vmess.json
+QRVMESS=$(base64 -i ./vmess.json)
+QRCODE='vmess://'${QRVMESS}''
 echo "${LTDUNG}" >> /etc/xray/config.json
-echo 'Nếu không có xuất hiện thông báo lỗi thì việc cài đặt và cấu hình xray sever đã hoàn tất'
-echo 'Nhấn enter để tiếp tục'
-read
 clear
 qrencode -t ansiutf8 "${QRCODE}"
-IP=$(curl -4 ifconfig.co)
-echo 'Quét qr thay ip bằng ip của bạn': "${IP}"
 echo 'File shell script make by Dũng'
 echo 'Gặp vấn đề gì ibox mình hỗ trợ'
 echo 'Facebook: https://fb.com/100081210470123'
-echo 'Đăng nhập vào trang quản lý openwrt vào theo mục System -> Startup -> tìm kiếm service tên xray và nhấn start'
-echo 'Thank you for used'
 /etc/init.d/xray start
