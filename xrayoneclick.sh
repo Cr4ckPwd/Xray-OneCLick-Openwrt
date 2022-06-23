@@ -5,9 +5,9 @@ uci set firewall.@redirect[-1].name='xRay'
 uci set firewall.@redirect[-1].dest='lan'
 uci set firewall.@redirect[-1].target='DNAT'
 uci set firewall.@redirect[-1].src='wan'
-uci set firewall.@redirect[-1].src_dport='88'
+uci set firewall.@redirect[-1].src_dport='80'
 uci set firewall.@redirect[-1].dest_ip=${NET_ADDR}
-uci set firewall.@redirect[-1].dest_port='88'
+uci set firewall.@redirect[-1].dest_port='80'
 uci commit firewall
 /etc/init.d/firewall restart
 opkg update
